@@ -1,5 +1,8 @@
 <template lang="pug">
 div
+  nav
+  ul
+    li(v-for="link in linksListName" :key="link") {{link}}
   ul
    li.list-item(v-for="product,i in products" :key="i" :class="{'done':product.done}") {{i}} {{product.text}}
     input(type='checkbox' @change="toggle(product)")
@@ -18,6 +21,7 @@ import { mapMutations, mapGetters } from 'vuex'
 export default {
   computed: {
     ...mapGetters('products', ['productList']),
+    ...mapGetters('links', ['linksListName']),
     products() {
       return this.$store.state.products.list
     }
