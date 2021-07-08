@@ -1,32 +1,53 @@
 <template lang="pug">
-  div
-    h1.title Welcome
+div
+  ul
+   li.list-item(v-for="product,i in products" :key="i" :class="{'done':product.done}") {{i}} {{product.text}}
+    input(type='checkbox' @change="toggle(product)")
+    span.remove(@click="remove(product)") x
+   li
+    input( @keyup.enter="addTodo" placeholder="What need to be done?")
+
+  ul  
+    h2 list
+    li {{productList}}
 </template>
 
 <script>
+import { mapMutations, mapGetters } from 'vuex'
+
 export default {
-  data() {
-    return {
-      test: ''
-    }
-  },
   computed: {
-    printVal() {
-      return this.$store.state.t
+    ...mapGetters('products', ['productList']),
+    products() {
+      return this.$store.state.products.list
     }
   },
   mounted() {
-    console.log('****-****')
-    console.log(this.$store.state.t)
-    console.log(this.$store.state)
+    console.log('product list ', this.productList)
   },
-  methods: {}
+  methods: {
+    addTodo(e) {
+      this.$store.commit('products/add', e.target.value)
+      e.target.value = ''
+    },
+    ...mapMutations({
+      toggle: 'products/toggle',
+      remove: 'products/remove'
+    })
+  }
 }
 </script>
 
 <style lang="stylus">
-.title
-  color brown
-  border 1px solid black
-  padding 1em
+.done
+  text-decoration line-through
+.list-item
+  margin 1em
+.remove
+  color red
+  padding .2em .5em
+  border 1px solid #000
+  cursor pointer
+  &:hover
+   background lightblue
 </style>
