@@ -5,21 +5,25 @@ div
   ul
     li(v-for="link in linksListName" :key="link") {{link}}
   ul
-   li.list-item(v-for="product,i in products" :key="i" :class="{'done':product.done}") {{i}} {{product.text}}
-    input(type='checkbox' @change="toggle(product)")
-    span.remove(@click="remove(product)") x
-   li
+    li.list-item(v-for="product,i in products" :key="i" :class="{'done':product.done}") {{i}} {{product.text}}
+      input(type='checkbox' @change="toggle(product)")
+      span.remove(@click="remove(product)") x
+    li
     input( @keyup.enter="addTodo" placeholder="What need to be done?")
 
   ul  
     h2 list
     li {{productList}}
+    mainFooter
 </template>
 
 <script>
 import { mapMutations, mapGetters } from 'vuex'
-
+import mainFooter from '../components/footer'
 export default {
+  components: {
+    mainFooter
+  },
   computed: {
     ...mapGetters('products', ['productList']),
     ...mapGetters('links', ['linksListName']),
@@ -54,5 +58,5 @@ export default {
   border 1px solid #000
   cursor pointer
   &:hover
-   background lightblue
+    background lightblue
 </style>
