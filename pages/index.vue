@@ -9,7 +9,18 @@ export default {
     return {
       test: ''
     }
-  }
+  },
+  computed: {
+    printVal() {
+      return this.$store.state.t
+    }
+  },
+  mounted() {
+    console.log('****-****')
+    console.log(this.$store.state.t)
+    console.log(this.$store.state)
+  },
+  methods: {}
 }
 </script>
 
