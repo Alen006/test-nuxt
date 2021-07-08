@@ -31,9 +31,6 @@ export default {
       return this.$store.state.products.list
     }
   },
-  mounted() {
-    console.log('product list ', this.productList)
-  },
   methods: {
     addTodo(e) {
       this.$store.commit('products/add', e.target.value)

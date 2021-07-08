@@ -1,13 +1,14 @@
 <template lang="pug">
   div
     h2  Footer {{copryright}}
+    p   lorem Ipsum
     </template>
 
 <script>
 export default {
   data() {
     return {
-      copryright: '2021'
+      copryright: 'copyright 2021'
     }
   }
 }
