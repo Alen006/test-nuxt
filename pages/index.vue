@@ -1,21 +1,15 @@
 <template lang="pug">
 
 div
-    lodashGet
-    list
     mainFooter
 </template>
 
 <script>
-import list from '../components/list'
 import mainFooter from '../components/footer'
-import lodashGet from '../components/lodashGet'
 
 export default {
   components: {
-    mainFooter,
-    list,
-    lodashGet
+    mainFooter
   }
 }
 </script>
