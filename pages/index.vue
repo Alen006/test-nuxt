@@ -1,7 +1,7 @@
 <template lang="pug">
 div.star-box
   div.star-box
-    icon-star.star(v-for="i in 5" @mouseover.native="setStar(i)" @mouseleave.native="setStarStatus(i)" @click.native="setStarStatus(i)" :class="{'active' : i <= currentStar}")
+    icon-star.star(v-for="i in 5" @mouseover.native="setStarStatus(i)" @mouseleave.native="setStarStatus(clicked)" @click.native="setStar(i)" :class="{'active' : i <= currentStar}")
   div.rating  {{currentStar}} / 5
 </template>
 
@@ -13,17 +13,20 @@ export default {
   },
   data() {
     return {
-      // qualityPrice: 3,
       currentStar: 0,
-      clean: 0
+      clicked: 0
     }
   },
   methods: {
     setStar(id) {
-      this.currentStar = id
+      this.clicked = id
     },
     setStarStatus(id) {
-      id <= 0 ? (this.currentStar = 0) : (this.currentStar = id)
+        if (id >= 1) {
+          this.currentStar = id
+        } else if (this.clicked >= 1) {
+          this.currentStar = this.clicked
+        }
     }
   }
 }
