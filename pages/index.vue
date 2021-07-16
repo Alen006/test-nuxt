@@ -1,53 +1,50 @@
 <template lang="pug">
-div
-  ul
-   li.list-item(v-for="product,i in products" :key="i" :class="{'done':product.done}") {{i}} {{product.text}}
-    input(type='checkbox' @change="toggle(product)")
-    span.remove(@click="remove(product)") x
-   li
-    input( @keyup.enter="addTodo" placeholder="What need to be done?")
-
-  ul  
-    h2 list
-    li {{productList}}
+div.star-box
+  div.star-box
+    icon-star.star(v-for="i in 5" @mouseover.native="setStar(i)" @mouseleave.native="setStarStatus(i)" @click.native="setStarStatus(i)" :class="{'active' : i <= currentStar}")
+  div.rating  {{currentStar}} / 5
 </template>
 
 <script>
-import { mapMutations, mapGetters } from 'vuex'
-
+import IconStar from '../components/IconStar'
 export default {
-  computed: {
-    ...mapGetters('products', ['productList']),
-    products() {
-      return this.$store.state.products.list
+  components: {
+    IconStar
+  },
+  data() {
+    return {
+      // qualityPrice: 3,
+      currentStar: 0,
+      clean: 0
     }
   },
-  mounted() {
-    console.log('product list ', this.productList)
-  },
   methods: {
-    addTodo(e) {
-      this.$store.commit('products/add', e.target.value)
-      e.target.value = ''
+    setStar(id) {
+      this.currentStar = id
     },
-    ...mapMutations({
-      toggle: 'products/toggle',
-      remove: 'products/remove'
-    })
+    setStarStatus(id) {
+      id <= 0 ? (this.currentStar = 0) : (this.currentStar = id)
+    }
   }
 }
 </script>
 
 <style lang="stylus">
+.rating
+  margin 0 1rem
 .done
   text-decoration line-through
 .list-item
   margin 1em
-.remove
-  color red
-  padding .2em .5em
-  border 1px solid #000
+.star-box
+  display flex
+.star
   cursor pointer
-  &:hover
-   background lightblue
+  fill #ddd
+  width 18px
+  height 18px
+.none
+  fill #ddd !important
+.active
+  fill #fd0
 </style>

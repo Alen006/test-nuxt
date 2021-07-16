@@ -1,5 +1,6 @@
 <template lang="pug">
   div
+    nuxt-link(to='/') Go Back
     h1 Prodcuts Page
 </template>
 
