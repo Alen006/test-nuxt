@@ -1,0 +1,1 @@
+export { isProductFetched } from './cache'
