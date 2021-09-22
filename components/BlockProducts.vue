@@ -1,7 +1,7 @@
 <template lang="pug">
 		section.block-products
 			item-product(v-for="product in productsList" :key="product.id" :product="product")
-			b TUTAJ {{productsList}}
+			modal-vue()
 
 </template>
 
@@ -9,11 +9,10 @@
 import { mapActions } from 'vuex'
 export default {
 	components:{
-		ItemProduct: ()=> import(/* webpackChunkName: 'ItemProduct' */ '@c/ItemProduct')
+		ItemProduct: ()=> import(/* webpackChunkName: 'ItemProduct' */ '@c/ItemProduct'),
+		ModalVue: ()=> import(/* webpackChunkName: 'ModalVue' */ '@c/ModalVue')
 	},
-	props:{
-	
-	},
+
 	data() {
 		return {
 			posts:[]
@@ -30,9 +29,13 @@ export default {
 		console.time('Execute 1')
 		this.fetchProducts()
 		console.timeEnd('Execute 1')
+		this.$nextTick(() => {
+		this.$nuxt.$loading.start()
+		setTimeout(() => this.$nuxt.$loading.finish(), 500)
+    })
 
 		},
-	methods:{	...mapActions('products',['fetchProducts']),
+	methods:{...mapActions('products',['fetchProducts']),
 
 	},
 

@@ -20,7 +20,7 @@
 					time(:datetime="timeCreatedAt").tag.content__actions-time {{timeCreatedAt}}
 
 			div.content__actions 
-				button.button.my-5.is-primary(@click="addProduct(product)") add to cart
+				button.button.my-5.is-primary(@click="addProduct(product._id)") add to cart
 </template>
 
 <script>
@@ -39,8 +39,7 @@ props:{
 },
 	data(){
 		return {
-			stockNumber: 0,
-			stockOfProduct:0
+	
 		}
 	},
 computed:{
@@ -57,13 +56,13 @@ computed:{
 },
 methods:{
 	...mapActions('products',['addProduct','deleteProduct','addToStock','removeFromStock']),
+	...mapActions('products',['showPopup']),
+
 	addItem(){
 		this.removeFromStock(this.product._id)
-
 	},
 	removeItem(){
 		this.addToStock(this.product._id)
-
 	}
 
 	},
